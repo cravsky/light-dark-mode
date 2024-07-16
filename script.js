@@ -20,8 +20,17 @@ function toggleMode(theme) {
 function switchTheme(event) {
     let theme = event.target.checked ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
     toggleMode(theme);
 }
 
 // Event Listener
 toggleSwitch.addEventListener('change', switchTheme);
+
+// Check Local Storage For Theme
+const currentTheme = localStorage.getItem('theme');
+if (currentTheme) {
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    toggleMode(currentTheme);
+    toggleSwitch.checked = currentTheme === 'dark';
+}
